@@ -1,0 +1,56 @@
+syntax = "proto3";
+package auth;
+
+option go_package = "api/auth/v1";
+import "google/protobuf/timestamp.proto";
+// User Name
+message UserName {
+  string user_name = 1;
+}
+
+// User Password
+message UserPassword {
+  string user_password = 2;
+}
+// User Address
+message Address {
+  string address = 1;
+  string postcode = 2;
+}
+
+// Message object - Registers the user in the system
+message UserRegistration {
+  int64 user_id = 1;
+  // user name
+  UserName user_name = 2;
+  // user password
+  UserPassword user_password = 3;
+  // house address
+  Address address = 4;
+  // terms and conditions
+  bool tnc = 5;
+  // when was the user registered
+  google.protobuf.Timestamp timestamp = 6;
+}
+
+// Message object - User Login
+message UserLogin {
+  UserName user_name = 1;
+  UserPassword user_password = 2;
+}
+// User Registration response
+message SuccessfulUserRegistration {
+  string msg = 1;
+}
+// User Login response
+message SuccessfulUserLogin {
+  string msg = 1;
+}
+
+// UserAuth is a simple service which takes care of user registration and user login
+service UserAuth {
+  // Register will register the user in the database and returns a success or failure message as response
+  rpc Register(UserRegistration) returns (SuccessfulUserRegistration) {}
+  // Login will authenticate the user in the system and return a success or failure message as response
+  rpc Login(UserLogin) returns (SuccessfulUserLogin) {}
+}
