@@ -1,2 +1,3 @@
 # go-grpc-demo
-A sample project to better understanding working with gRPC and Protobuf  
+
+A sample project to better understand how to work with gRPC and Protobuf API by creating a user authentication service
